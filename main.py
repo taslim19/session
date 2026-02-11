@@ -3,6 +3,7 @@ import uuid
 from fastapi import FastAPI
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
+from fastapi import Response
 
 from telethon import TelegramClient
 from pyrogram import Client
@@ -20,9 +21,13 @@ class SessionRequest(BaseModel):
     session_name: str | None = None
     lib: str = "telethon"
 
-@app.api_route("/health", methods=["GET", "HEAD"])
+@app.get("/health")
 def health():
     return {"status": "ok"}
+
+@app.head("/health")
+def health_head():
+    return Response(status_code=200)
 
 @app.get("/")
 def home():

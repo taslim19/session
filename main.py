@@ -20,7 +20,7 @@ class SessionRequest(BaseModel):
     session_name: str | None = None
     lib: str = "telethon"
 
-@app.get("/health")
+@app.api_route("/health", methods=["GET", "HEAD"])
 def health():
     return {"status": "ok"}
 
